@@ -3,6 +3,7 @@
 #include "DFS/DFS.h"
 #include "Djikstra/Djikstra.h"
 #include "Toposort/toposort.h"
+#include "draw/draw.h"
 #include<iostream>
 using std::cin;
 using std::cout;
@@ -79,4 +80,5 @@ int main(){
 
     return 0;
 }
+
 

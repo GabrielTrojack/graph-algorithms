@@ -34,6 +34,19 @@ void draw(Graph graph) {
 
     const char* c = getDOTstr(graph);
 
+    // const char*c = R"(
+    //     digraph G {
+    //         a [color=blue, fontcolor=blue];
+    //         b [color=blue, fontcolor=blue];
+
+    //         c [color=red, fontcolor=red];
+    //         d [color=red, fontcolor=red];
+
+    //         a -> b;
+    //         c -> d;
+    //     }
+    //     )";
+
     g = agmemread(c);
     gvLayout(gvc, g, "dot");
     gvRenderFilename (gvc, g, "png", "out.png");    

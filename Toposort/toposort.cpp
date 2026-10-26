@@ -31,9 +31,11 @@ void Toposort::sort(bool directedCycle) {
     }
 
     std::cout << "Ordem topologica: ";
+    ll i = 0;
     while(!q.empty()) {
         ll x = q.front();
-        std::cout << " --> " << x;
+        if (i>0) std::cout << " - ";
+        std::cout << x;
         q.pop();
 
         for(ll i = 0; i < this->adj[x].size(); i++) {
@@ -42,6 +44,8 @@ void Toposort::sort(bool directedCycle) {
             this->inDegree[y]--;
             if (this->inDegree[y]==0) q.push(y);
         }
+
+        i++;
     }
 
     std::cout << "\n";
