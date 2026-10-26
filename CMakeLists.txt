@@ -12,6 +12,7 @@ add_executable(meu_programa
     Djikstra/Djikstra.cpp
     DFS/DFS.cpp
     BFS/BFS.cpp
+    Toposort/toposort.cpp
     draw/draw.cpp
 )
 

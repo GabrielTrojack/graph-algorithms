@@ -2,6 +2,7 @@
 #include "BFS/BFS.h"
 #include "DFS/DFS.h"
 #include "Djikstra/Djikstra.h"
+#include "Toposort/toposort.h"
 #include<iostream>
 using std::cin;
 using std::cout;
@@ -16,10 +17,14 @@ int main(){
     BFS b;
     DFS d;
     Djikstra dj;
+    Toposort ts;
 
     b.adj.resize(n);
     d.adj.resize(n);
     dj.adj.resize(n);
+    ts.adj.resize(n);
+
+    ts.pre_sort(n, orientado);
 
     bool tem_peso_negativo = false;
 
@@ -39,12 +44,15 @@ int main(){
         b.adj[u].push_back(v);
         d.adj[u].push_back(v);
         dj.adj[u].push_back({w,v});
+        ts.adj[u].push_back({v, w});
 
         if (orientado==0){
             b.adj[v].push_back(u);
             d.adj[v].push_back(u);
             dj.adj[v].push_back({w,u});
         }
+
+        ts.inDegree[v]++;
     }
 
     ll origem;
@@ -60,6 +68,7 @@ int main(){
 
     d.imprimir();
     b.imprimir();
+    ts.sort(d.directedCycle);
 
     if (tem_peso_negativo){
         cout << "Dijkstra: o algoritmo nao se aplica, pois o grafo possui aresta com peso negativo." << endl;

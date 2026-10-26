@@ -13,6 +13,7 @@ class DFS{
         vector<ll>d;
         vector<ll>f;
         vector<ll>ordem;
+        bool directedCycle;
 
         void dfs(ll node);
         void pre_dfs(ll u, ll origem);

@@ -17,6 +17,9 @@ void DFS::dfs(ll node){
             pai[next]=node;
             dfs(next);
         }
+        else { // Ciclo quando é orientado
+            directedCycle = true;
+        }
     }
     timestamp++;
     f[node]=timestamp;
