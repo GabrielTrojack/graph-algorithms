@@ -69,7 +69,7 @@ int main(){
 
     d.imprimir();
     b.imprimir();
-    ts.sort(d.directedCycle);
+    ts.sort();
 
     if (tem_peso_negativo){
         cout << "Dijkstra: o algoritmo nao se aplica, pois o grafo possui aresta com peso negativo." << endl;

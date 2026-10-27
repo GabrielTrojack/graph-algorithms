@@ -6,23 +6,18 @@ void Toposort::pre_sort(ll n, bool orientado) {
     this->inDegree.resize(n, 0);
 }
 
-bool Toposort::valid(bool directedCycle) {
+bool Toposort::valid() {
     if (!this->orientado) {
         std::cout << "Toposort: Nao foi possivel realizar o algoritmo pois o grafo nao e orientado\n";
-        return false;
-    }
-
-    if (directedCycle) {
-        std::cout << "Toposort: Nao foi possivel realizar o algoritmo pois o grafo possui ciclo\n";
         return false;
     }
 
     return true;
 }
 
-void Toposort::sort(bool directedCycle) {
+void Toposort::sort() {
     // verifica se é orientado e se é aciclico
-    if (!valid(directedCycle)) return;
+    if (!valid()) return;
 
     queue<ll> q;
 

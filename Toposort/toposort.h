@@ -16,8 +16,8 @@ class Toposort {
         bool orientado;
 
         void pre_sort(ll n, bool orientado);
-        void sort(bool directedCycle);
-        bool valid(bool directedCycle);
+        void sort();
+        bool valid();
 };
 
 #endif
