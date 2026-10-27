@@ -6,6 +6,7 @@ using std::endl;
 
 #define ll long long
 
+// executa algoritimo de menor caminho com uma fila de prioridade
 void Djikstra::djikstra(ll node){
     fila.push({0,node});
     cor[node]='C';
@@ -29,6 +30,7 @@ void Djikstra::djikstra(ll node){
     }
 }
 
+// inicializaçao
 void Djikstra::pre_djikstra(ll u, ll origem){
     cor.resize(u,'B');
     pai.resize(u, -1);
@@ -37,11 +39,12 @@ void Djikstra::pre_djikstra(ll u, ll origem){
     djikstra(origem);
 }
 
+// Impressão
 void Djikstra::imprimir(){
     cout << "Dijkstra:" << endl;
     for (ll v = 0; v < d.size(); v++){
         cout << v << ": ";
-        if (d[v]>=1000000000){
+        if (d[v]>=1e9){
             cout << "infinito";
         } else {
             cout << d[v];

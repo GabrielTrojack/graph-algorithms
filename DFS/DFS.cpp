@@ -7,6 +7,7 @@ using std::endl;
 #define ll long long
 
 
+// executa busca
 void DFS::dfs(ll node){
     cor[node]='C';
     timestamp++;
@@ -26,6 +27,7 @@ void DFS::dfs(ll node){
     cor[node]='P';
 }
 
+// inicialização
 void DFS::pre_dfs(ll u, ll origem){
     cor.resize(u,'B');
     pai.resize(u, -1);
@@ -41,6 +43,7 @@ void DFS::pre_dfs(ll u, ll origem){
     }
 }
 
+// impressão
 void DFS::imprimir(){
     cout << "Busca em profundidade: ";
     for (ll i = 0; i < ordem.size(); i++){

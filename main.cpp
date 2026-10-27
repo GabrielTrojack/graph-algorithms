@@ -1,84 +1,175 @@
-
+#include "Grafo/Grafo.h"
 #include "BFS/BFS.h"
 #include "DFS/DFS.h"
 #include "Djikstra/Djikstra.h"
 #include "Toposort/toposort.h"
-#include "draw/draw.h"
+#include "Kruskal/Kruskal.h"
 #include<iostream>
+#include<string>
 using std::cin;
 using std::cout;
 using std::endl;
+using std::getline;
+using std::string;
 
 #define ll long long
 
+void copiar_vizinhos(Grafo &g, vector<vector<ll>> &adj){
+    adj.resize(g.n);
+    for (ll u = 0; u < g.n; u++){
+        for (auto par : g.adj[u]){
+            adj[u].push_back(par.first);
+        }
+    }
+}
+
+void copiar_para_djikstra(Grafo &g, vector<vector<pair<ll,ll>>> &adj){
+    adj.resize(g.n);
+    for (ll u = 0; u < g.n; u++){
+        for (auto par : g.adj[u]){
+            adj[u].push_back({par.second, par.first});
+        }
+    }
+}
+
+bool ler_numero(ll &x){
+    if (cin >> x){
+        return true;
+    }
+    if (!cin.eof()){
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Entrada invalida: digite um numero." << endl;
+    }
+    return false;
+}
+
+bool ler_origem(Grafo &g, ll &origem){
+    cout << "Vertice de origem (0 a " << g.n-1 << "): ";
+    if (!ler_numero(origem)){
+        return false;
+    }
+    if (origem<0 || origem>=g.n){
+        cout << "Vertice invalido: deve estar entre 0 e " << g.n-1 << "." << endl;
+        return false;
+    }
+    return true;
+}
+
+void imprimir_menu(Grafo &g){
+    cout << endl;
+    cout << "1 - Carregar grafo" << endl;
+    if (g.carregado){
+        cout << "2 - Busca em profundidade" << endl;
+        cout << "3 - Busca em largura" << endl;
+        cout << "4 - Ordenacao topologica" << endl;
+        cout << "5 - Dijkstra" << endl;
+        cout << "6 - Kruskal" << endl;
+    }
+    cout << "0 - Sair" << endl;
+    cout << "Opcao: ";
+}
+
 int main(){
-    ll n, m, orientado;
-    cin >> n >> m >> orientado;
+    Grafo atual;
 
-    BFS b;
-    DFS d;
-    Djikstra dj;
-    Toposort ts;
+    while (true){
+        imprimir_menu(atual);
 
-    b.adj.resize(n);
-    d.adj.resize(n);
-    dj.adj.resize(n);
-    ts.adj.resize(n);
-
-    ts.pre_sort(n, orientado);
-
-    bool tem_peso_negativo = false;
-
-    for (ll i = 0; i < m; i++){
-        ll u, v, w;
-        cin >> u >> v >> w;
-
-        if (u<0 || u>=n || v<0 || v>=n){
-            cout << "Vertice invalido: deve estar entre 0 e " << n-1 << "." << endl;
-            return 0;
+        ll opcao;
+        if (!ler_numero(opcao)){
+            if (cin.eof()){
+                break;
+            }
+            continue;
         }
 
-        if (w<0){
-            tem_peso_negativo = true;
+        if (opcao==0){
+            break;
         }
 
-        b.adj[u].push_back(v);
-        d.adj[u].push_back(v);
-        dj.adj[u].push_back({w,v});
-        ts.adj[u].push_back({v, w});
-
-        if (orientado==0){
-            b.adj[v].push_back(u);
-            d.adj[v].push_back(u);
-            dj.adj[v].push_back({w,u});
+        if (opcao!=1 && (!atual.carregado || opcao<0 || opcao>6)){
+            cout << "Opcao invalida." << endl;
+            continue;
         }
 
-        ts.inDegree[v]++;
-    }
+        switch (opcao){
+            case 1: {
+                string caminho;
+                cout << "Caminho do arquivo: ";
+                cin >> std::ws;
+                getline(cin, caminho);
 
-    ll origem;
-    cin >> origem;
+                Grafo novo;
+                if (novo.carregar(caminho)){
+                    atual = novo;
+                    atual.imprimir_info();
+                } else {
+                    cout << "Erro: nao foi possivel carregar o grafo do arquivo." << endl;
+                }
+                break;
+            }
+            case 2: {
+                ll origem;
+                if (ler_origem(atual, origem)){
+                    DFS d;
+                    copiar_vizinhos(atual, d.adj);
+                    d.pre_dfs(atual.n, origem);
+                    d.imprimir();
+                }
+                break;
+            }
+            case 3: {
+                ll origem;
+                if (ler_origem(atual, origem)){
+                    BFS b;
+                    copiar_vizinhos(atual, b.adj);
+                    b.pre_bfs(atual.n, origem);
+                    b.imprimir();
+                }
+                break;
+            }
+            case 4: {
+                DFS d;
+                copiar_vizinhos(atual, d.adj);
+                d.pre_dfs(atual.n, 0);
 
-    if (origem<0 || origem>=n){
-        cout << "Vertice invalido: deve estar entre 0 e " << n-1 << "." << endl;
-        return 0;
-    }
-
-    d.pre_dfs(n, origem);
-    b.pre_bfs(n, origem);
-
-    d.imprimir();
-    b.imprimir();
-    ts.sort(d.directedCycle);
-
-    if (tem_peso_negativo){
-        cout << "Dijkstra: o algoritmo nao se aplica, pois o grafo possui aresta com peso negativo." << endl;
-    } else {
-        dj.pre_djikstra(n, origem);
-        dj.imprimir();
+                Toposort ts;
+                ts.pre_sort(atual.n, atual.orientado);
+                ts.adj = atual.adj;
+                for (auto a : atual.arestas){
+                    ts.inDegree[a.v]++;
+                }
+                ts.sort(d.directedCycle);
+                break;
+            }
+            case 5: {
+                if (atual.peso_negativo){
+                    cout << "Nao foi possivel realizar o algoritmo,  pois o grafo possui aresta com peso negativo." << endl;
+                    break;
+                }
+                ll origem;
+                if (ler_origem(atual, origem)){
+                    Djikstra dj;
+                    copiar_para_djikstra(atual, dj.adj);
+                    dj.pre_djikstra(atual.n, origem);
+                    dj.imprimir();
+                }
+                break;
+            }
+            case 6: {
+                if (atual.orientado){
+                    cout << "O algoritmo nao se aplica, pois o grafo e orientado." << endl;
+                    break;
+                }
+                Kruskal k;
+                k.arestas = atual.arestas;
+                k.pre_kruskal(atual.n);
+                k.imprimir();
+                break;
+            }
+        }
     }
 
     return 0;
 }
-
-

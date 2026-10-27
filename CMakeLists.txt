@@ -9,11 +9,13 @@ pkg_check_modules(GRAPHVIZ REQUIRED libgvc)
 
 add_executable(meu_programa
     main.cpp
+    Grafo/Grafo.cpp
     Djikstra/Djikstra.cpp
     DFS/DFS.cpp
     BFS/BFS.cpp
     Toposort/toposort.cpp
     draw/draw.cpp
+    Kruskal/Kruskal.cpp
 )
 
 target_include_directories(meu_programa PRIVATE
