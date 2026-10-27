@@ -6,6 +6,7 @@ using std::endl;
 
 #define ll long long
 
+// executa bfs
 void BFS::bfs(ll node){
     fila.push(node);
     cor[node]='C';
@@ -29,6 +30,7 @@ void BFS::bfs(ll node){
     }
 }
 
+// inicialização 
 void BFS::pre_bfs(ll u, ll origem){
     cor.resize(u,'B');
     pai.resize(u, -1);
@@ -43,6 +45,7 @@ void BFS::pre_bfs(ll u, ll origem){
     }
 }
 
+// impressão
 void BFS::imprimir(){
     cout << "Busca em largura: ";
     for (ll i = 0; i < ordem.size(); i++){
