@@ -13,9 +13,9 @@
 #include "../CFC/cfc.h"
 #include "../Kruskal/Kruskal.h"
 
-void draw(Grafo graph, std::string attributes);
+void draw(Grafo graph, std::string attributes, std::string edgeAtt);
 void draw_cfc(CFC cfc);
 void draw_kruskal(Kruskal kruskal);
-std::string getDOTstr(Grafo graph, std::string attributes);
+std::string getDOTstr(Grafo graph, std::string attributes, std::string edgeAtt);
 
 #endif

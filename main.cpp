@@ -139,7 +139,7 @@ int main(){
                     d.pre_dfs(atual.n, origem);
                     d.imprimir();
 
-                    draw(atual, "");
+                    draw(atual, "", "");
                 }
                 break;
             }
@@ -151,7 +151,7 @@ int main(){
                     b.pre_bfs(atual.n, origem);
                     b.imprimir();
 
-                    draw(atual, "");
+                    draw(atual, "", "");
                 }
                 break;
             }
@@ -168,7 +168,7 @@ int main(){
                 }
                 ts.sort();
                 
-                draw(atual, "");
+                draw(atual, "", "");
                 break;
             }
             case 5: {
@@ -183,7 +183,7 @@ int main(){
                     dj.pre_djikstra(atual.n, origem);
                     dj.imprimir();
 
-                    draw(atual, "");
+                    draw(atual, "", "");
                 }
                 break;
             }

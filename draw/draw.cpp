@@ -1,6 +1,6 @@
 #include "./draw.h"
 
-std::string getDOTstr(Grafo graph, std::string attributes) {
+std::string getDOTstr(Grafo graph, std::string attributes, std::string edgeAtt) {
     std::string s = "strict ";
 
     std::string edgeop;
@@ -26,6 +26,8 @@ std::string getDOTstr(Grafo graph, std::string attributes) {
         }
     }
 
+    if (edgeAtt != "") s += edgeAtt;
+
     s += "}";
     
     return s;
@@ -36,11 +38,19 @@ void draw_kruskal(Kruskal kruskal) {
     g.orientado = false;
     g.adj.resize(kruskal.n);
 
-    for(auto a: kruskal.arvore) {
+    for(auto a: kruskal.arestas) {
         g.adj[a.u].push_back({a.v, a.w});
     }
 
-    draw(g, "");
+    std::string attributes = "";
+    for(auto a: kruskal.arvore) {
+        attributes += std::to_string(a.u);
+        attributes += " -- ";
+        attributes += std::to_string(a.v);
+        attributes += " [color=red];";
+    }
+
+    draw(g, "", attributes);
 }
 
 void draw_cfc(CFC cfc) {
@@ -68,16 +78,16 @@ void draw_cfc(CFC cfc) {
         }
     }
 
-    draw(g, attributes);
+    draw(g, attributes, "");
 }
 
-void draw(Grafo graph, std::string attributes) {
+void draw(Grafo graph, std::string attributes, std::string edgeAtt) {
     GVC_t *gvc;
     Agraph_t *g;
     FILE *fp;
     gvc = gvContext();
 
-    std::string c = getDOTstr(graph, attributes);
+    std::string c = getDOTstr(graph, attributes, edgeAtt);
 
     g = agmemread(c.c_str());
     gvLayout(gvc, g, "dot");
