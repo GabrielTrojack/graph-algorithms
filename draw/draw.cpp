@@ -1,7 +1,7 @@
 #include "./draw.h"
 
 std::string getDOTstr(Grafo graph, std::string attributes) {
-    std::string s;
+    std::string s = "strict ";
 
     std::string edgeop;
     if (graph.orientado) {
@@ -31,16 +31,22 @@ std::string getDOTstr(Grafo graph, std::string attributes) {
     return s;
 }
 
+void draw_kruskal(Kruskal kruskal) {
+    Grafo g;
+    g.orientado = false;
+    g.adj.resize(kruskal.n);
+
+    for(auto a: kruskal.arvore) {
+        g.adj[a.u].push_back({a.v, a.w});
+    }
+
+    draw(g, "");
+}
+
 void draw_cfc(CFC cfc) {
     Grafo g;
     g.orientado = true;
-    g.adj.resize(cfc.adj.size());
-
-    for(ll i = 0; i < cfc.adj.size(); i++) {
-        for(ll j = 0; j < cfc.adj[i].size(); j++) {
-            g.adj[i].push_back({cfc.adj[i][j], 1});
-        }
-    }
+    g.adj = cfc.adj;
 
     std::string attributes = "";
     for(ll i = 0; i < cfc.componentes.size(); i++) {

@@ -25,11 +25,21 @@ void copiar_vizinhos(Grafo &g, vector<vector<ll>> &adj){
     }
 }
 
-void copiar_vizinhos_transposto(Grafo &g, vector<vector<ll>> &adj) {
+void copiar_para_cfc(Grafo &g, vector<vector<pair<ll, ll>>> &adj) {
+    adj.resize(g.n);
+
+    for (ll u = 0; u < g.n; u++) {
+        for (auto par : g.adj[u]) {
+            adj[u].push_back({par.first, par.second});
+        }
+    }
+}
+
+void copiar_vizinhos_transposto(Grafo &g, vector<vector<pair<ll, ll>>> &adj) {
     adj.resize(g.n);
     for (ll u = 0; u < g.n; u++){
         for (auto par : g.adj[u]){
-            adj[par.first].push_back(u);
+            adj[par.first].push_back({u, par.second});
         }
     }
 }
@@ -186,7 +196,8 @@ int main(){
                 k.arestas = atual.arestas;
                 k.pre_kruskal(atual.n);
                 k.imprimir();
-
+                
+                draw_kruskal(k);
                 break;
             }
             case 7: {
@@ -196,7 +207,7 @@ int main(){
                 }
 
                 CFC c;
-                copiar_vizinhos(atual, c.adj);
+                copiar_para_cfc(atual, c.adj);
                 copiar_vizinhos_transposto(atual, c.adjTrans);
                 c.cfc();
 

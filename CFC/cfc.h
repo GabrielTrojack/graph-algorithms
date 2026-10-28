@@ -21,11 +21,11 @@ class Componente {
 
 class CFC {
     public:
-        vector<vector<ll>>adj;
-        vector<vector<ll>> adjTrans;
-        vector<char>cor;
-        vector<ll>d;
-        vector<ll>f;
+        vector<vector<pair<ll, ll>>> adj;
+        vector<vector<pair<ll, ll>>> adjTrans;
+        vector<char> cor;
+        vector<ll> d;
+        vector<ll> f;
         vector<ll> ordem;
         vector<Componente> componentes;
         bool orientado;
@@ -34,7 +34,8 @@ class CFC {
         void defineCor(Componente &comp);
         void imprime(vector<Componente> &componentes);
         void insere_ordenado(Componente &comp);
-        void dfs(ll x, vector<vector<ll>> &adjl, Componente *comp);
+        void dfs(ll x, vector<vector<pair<ll, ll>>> &adjl,
+                 Componente *comp);
 };
 
 #endif
