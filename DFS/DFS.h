@@ -15,8 +15,11 @@ class DFS{
         vector<ll>ordem;
         bool directedCycle;
 
+        /* executa a busca em profundidade a partir do nó informado, marcando ciclo quando orientado */
         void dfs(ll node);
+        /* inicializa os atributos necessários e executa o dfs a partir da origem, cobrindo componentes desconexos */
         void pre_dfs(ll u, ll origem);
+        /* imprime a ordem de visitação da busca em profundidade */
         void imprimir();
 };
 

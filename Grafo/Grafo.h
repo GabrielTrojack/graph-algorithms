@@ -21,8 +21,11 @@ class Grafo{
         vector<vector<pair<ll,ll>>>adj;
         vector<Aresta>arestas;
 
+        /* carrega o grafo a partir de um arquivo no formato orientado=sim|nao, V=n, (u,v):w */
         bool carregar(const std::string &caminho);
+        /* insere a aresta (v,w) na lista de adjacência de u mantendo a ordenação */
         void inserir_ordenado(ll u, ll v, ll w);
+        /* imprime informações gerais do grafo carregado */
         void imprimir_info();
 };
 

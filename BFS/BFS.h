@@ -15,8 +15,11 @@ class BFS{
         vector<ll>ordem;
         queue<ll>fila;
 
+        /* executa a busca em largura a partir do nó informado */
         void bfs(ll node);
+        /* inicializa os atributos necessários e executa o bfs a partir da origem, cobrindo componentes desconexos */
         void pre_bfs(ll u, ll origem);
+        /* imprime a ordem de visitação da busca em largura */
         void imprimir();
 };
 

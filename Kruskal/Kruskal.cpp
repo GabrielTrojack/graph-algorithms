@@ -5,13 +5,11 @@ using std::endl;
 
 #define ll long long
 
-//encontra o pai do no atual e faz path compressing
 ll Kruskal::find(ll x){
     if (parent[x]<0)return x;
     return find(parent[x]);
 }
 
-//une dois nós separados 
 void Kruskal::unite(ll x,ll y){
     if(x==y)return;
     if (parent[x]<=parent[y]){
@@ -23,7 +21,6 @@ void Kruskal::unite(ll x,ll y){
     }
 }
 
-//ordena por mergesort
 void Kruskal::ordenar(ll l,ll r){
     if (r-l<=1)return;
     ll m=(l+r)/2;
@@ -42,7 +39,6 @@ void Kruskal::ordenar(ll l,ll r){
     for (ll t = l; t < r; t++)arestas[t]=aux[t];
 }
 
-//passa por todas as arestas e monta a arvore 
 void Kruskal::kruskal(){
     for (auto e: arestas){
         ll a=find(e.u),b=find(e.v);
@@ -56,7 +52,6 @@ void Kruskal::kruskal(){
     }
 }
 
-//inicialização
 void Kruskal::pre_kruskal(ll u){
     n=u;
     parent.resize(n,-1);
@@ -66,7 +61,6 @@ void Kruskal::pre_kruskal(ll u){
     kruskal();
 }
 
-//Impressão
 void Kruskal::imprimir(){
     cout<<"peso total: "<<sum<<endl;
     cout<<"arestas:";
