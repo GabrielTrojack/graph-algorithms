@@ -13,24 +13,28 @@
 
 #define ll long long
 
-class Componentes {
-    uint32_t cor;
-    vector<ll> vertices;
+class Componente {
+    public:
+        uint32_t cor;
+        vector<ll> vertices;
 };
 
 class CFC {
     public:
-        vector<vector<pair<ll, ll>>>adj;
-        vector<vector<pair<ll, ll>>> adjTrans;
+        vector<vector<ll>>adj;
+        vector<vector<ll>> adjTrans;
         vector<char>cor;
-        vector<ll>pai;
         vector<ll>d;
         vector<ll>f;
-        vector<Componentes> componentes;
+        vector<ll> ordem;
+        vector<Componente> componentes;
         bool orientado;
 
         void cfc();
-        void dfs();
+        void defineCor(Componente &comp);
+        void imprime(vector<Componente> &componentes);
+        void insere_ordenado(Componente &comp);
+        void dfs(ll x, vector<vector<ll>> &adjl, Componente *comp);
 };
 
 #endif

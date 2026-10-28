@@ -4,6 +4,8 @@
 #include "Djikstra/Djikstra.h"
 #include "Toposort/toposort.h"
 #include "Kruskal/Kruskal.h"
+#include "CFC/cfc.h"
+#include "draw/draw.h"
 #include<iostream>
 #include<string>
 using std::cin;
@@ -19,6 +21,15 @@ void copiar_vizinhos(Grafo &g, vector<vector<ll>> &adj){
     for (ll u = 0; u < g.n; u++){
         for (auto par : g.adj[u]){
             adj[u].push_back(par.first);
+        }
+    }
+}
+
+void copiar_vizinhos_transposto(Grafo &g, vector<vector<ll>> &adj) {
+    adj.resize(g.n);
+    for (ll u = 0; u < g.n; u++){
+        for (auto par : g.adj[u]){
+            adj[par.first].push_back(u);
         }
     }
 }
@@ -65,6 +76,7 @@ void imprimir_menu(Grafo &g){
         cout << "4 - Ordenacao topologica" << endl;
         cout << "5 - Dijkstra" << endl;
         cout << "6 - Kruskal" << endl;
+        cout << "7 - CFC" << endl;
     }
     cout << "0 - Sair" << endl;
     cout << "Opcao: ";
@@ -88,7 +100,7 @@ int main(){
             break;
         }
 
-        if (opcao!=1 && (!atual.carregado || opcao<0 || opcao>6)){
+        if (opcao!=1 && (!atual.carregado || opcao<0 || opcao>8)){
             cout << "Opcao invalida." << endl;
             continue;
         }
@@ -166,6 +178,19 @@ int main(){
                 k.arestas = atual.arestas;
                 k.pre_kruskal(atual.n);
                 k.imprimir();
+                break;
+            }
+            case 7: {
+                if (!atual.orientado) {
+                    cout << "O algoritmo nao se aplica, pois o grafo nao e orientado" << endl;
+                    break;
+                }
+
+                CFC c;
+                copiar_vizinhos(atual, c.adj);
+                copiar_vizinhos_transposto(atual, c.adjTrans);
+                c.cfc();
+
                 break;
             }
         }

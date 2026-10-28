@@ -16,6 +16,7 @@ add_executable(meu_programa
     Toposort/toposort.cpp
     draw/draw.cpp
     Kruskal/Kruskal.cpp
+    CFC/cfc.cpp
 )
 
 target_include_directories(meu_programa PRIVATE
