@@ -24,7 +24,7 @@ void copiar_vizinhos(Grafo &g, vector<vector<ll>> &adj){
         }
     }
 }
-
+/* copia as arestas do grafo lido para as arestas do grafo a ser utilizado pelo algoritmo CFC */
 void copiar_para_cfc(Grafo &g, vector<vector<pair<ll, ll>>> &adj) {
     adj.resize(g.n);
 
@@ -35,6 +35,7 @@ void copiar_para_cfc(Grafo &g, vector<vector<pair<ll, ll>>> &adj) {
     }
 }
 
+/* copia as arestas do grafo lido para as arestas para o grafo transposto a ser utilizado pelo algoritmo CFC */
 void copiar_vizinhos_transposto(Grafo &g, vector<vector<pair<ll, ll>>> &adj) {
     adj.resize(g.n);
     for (ll u = 0; u < g.n; u++){

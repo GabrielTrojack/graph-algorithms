@@ -15,8 +15,11 @@ class Toposort {
         vector<char> cor;
         bool orientado;
 
+        /* inicializa atributos necessários para o toposort a partir dos parâmetros*/
         void pre_sort(ll n, bool orientado);
+        /* aplica a ordenação topológica sobre o grafo */
         void sort();
+        /* verifica se grafo é orientado */
         bool valid();
 };
 
