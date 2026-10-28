@@ -9,14 +9,13 @@
 #include <gvc.h>
 #include <iostream>
 #include <string>
+#include "../Grafo/Grafo.h"
+#include "../CFC/cfc.h"
+#include "../Kruskal/Kruskal.h"
 
-class Graph {
-    public:
-        vector<vector<pair<ll,ll>>>adj;        
-        bool orientado;
-};
-
-void draw(Graph graph);
-const char* getDOTstr(Graph graph);
+void draw(Grafo graph, std::string attributes);
+void draw_cfc(CFC cfc);
+void draw_kruskal(Kruskal kruskal);
+std::string getDOTstr(Grafo graph, std::string attributes);
 
 #endif

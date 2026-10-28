@@ -100,7 +100,7 @@ int main(){
             break;
         }
 
-        if (opcao!=1 && (!atual.carregado || opcao<0 || opcao>8)){
+        if (opcao!=1 && (!atual.carregado || opcao<0 || opcao>7)){
             cout << "Opcao invalida." << endl;
             continue;
         }
@@ -128,6 +128,8 @@ int main(){
                     copiar_vizinhos(atual, d.adj);
                     d.pre_dfs(atual.n, origem);
                     d.imprimir();
+
+                    draw(atual, "");
                 }
                 break;
             }
@@ -138,6 +140,8 @@ int main(){
                     copiar_vizinhos(atual, b.adj);
                     b.pre_bfs(atual.n, origem);
                     b.imprimir();
+
+                    draw(atual, "");
                 }
                 break;
             }
@@ -153,6 +157,8 @@ int main(){
                     ts.inDegree[a.v]++;
                 }
                 ts.sort();
+                
+                draw(atual, "");
                 break;
             }
             case 5: {
@@ -166,6 +172,8 @@ int main(){
                     copiar_para_djikstra(atual, dj.adj);
                     dj.pre_djikstra(atual.n, origem);
                     dj.imprimir();
+
+                    draw(atual, "");
                 }
                 break;
             }
@@ -178,6 +186,7 @@ int main(){
                 k.arestas = atual.arestas;
                 k.pre_kruskal(atual.n);
                 k.imprimir();
+
                 break;
             }
             case 7: {
@@ -190,6 +199,8 @@ int main(){
                 copiar_vizinhos(atual, c.adj);
                 copiar_vizinhos_transposto(atual, c.adjTrans);
                 c.cfc();
+
+                draw_cfc(c);
 
                 break;
             }
